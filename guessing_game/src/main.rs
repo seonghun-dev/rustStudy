@@ -48,8 +48,17 @@ loop{
         Ok는 처리 성공과 성공적으로 생성된 결과
         Err은 처리가 실패했음과 그 이유
     */
-    let guess: u32 = guess.trim().parse()
-        .expect("Please type a number!");
+    let guess: u32 = match guess.trim().parse(){
+        Ok(num) => num,
+        Err(_) => continue,
+    };
+    /*
+        except 메소드 match 표현식으로 변경시 에러 발생시 종료에서 처리로 바꿈
+        Ok, Err을 처리
+     */
+
+
+
     /*
         이전에 사용된 guess의 값을 가리는 것을 허락
         Shadowing 고유의 변수명 만들기 대신 재사용을 허락
