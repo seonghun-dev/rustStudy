@@ -4,6 +4,7 @@ extern crate rand;
  */
 
 use std::io;
+use std::cmp::Ordering;
 use rand::Rng;
 /*
     Rng는 정수 생성기가 구현한 메소드를 정의한 trait
@@ -20,7 +21,7 @@ fn main() {
 
     let secret_number = rand::thread_rng().gen_range(1, 101);
     /*
-        get_range(), 하한선 포함, 상한선 비포함
+        get_range(), 하한선 포함, 상한선 비포
      */
     println!("The secret number is: {}", secret_number);
 
@@ -47,9 +48,22 @@ fn main() {
         Ok는 처리 성공과 성공적으로 생성된 결과
         Err은 처리가 실패했음과 그 이유
     */
+    let guess: u32 = guess.trim().parse()
+        .expect("Please type a number!");
+    /*
+        이전에 사용된 guess의 값을 가리는 것을 허락
+        Shadowing 고유의 변수명 만들기 대신 재사용을 허락
+        parse() 메소드는 문자열을 숫자형으로 파싱
+     */
 
     println!("You guessed: {}", guess);
     /*
         {}는 형식 표현자로, 변경자로써 값이 표시되는 위치를 나타냄
      */
+
+    match guess.cmp(&secret_number) {
+        Ordering::Less    => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal   => println!("You win!"),
+    }
 }
