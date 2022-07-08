@@ -1,4 +1,14 @@
+extern crate rand;
+/*
+    외부 의존 크레이트가 있음을 알림.
+ */
+
 use std::io;
+use rand::Rng;
+/*
+    Rng는 정수 생성기가 구현한 메소드를 정의한 trait
+ */
+
 /*
     사용자의 입력받기 위해서, std::io 라이브러리 사용해야함.
     러스트는 모든 프로그램의 스코프에 prelude내의 타입들을 가져옴.
@@ -7,6 +17,12 @@ use std::io;
 
 fn main() {
     println!("Guess the number!");
+
+    let secret_number = rand::thread_rng().gen_range(1, 101);
+    /*
+        get_range(), 하한선 포함, 상한선 비포함
+     */
+    println!("The secret number is: {}", secret_number);
 
     println!("Please input your guess.");
 
